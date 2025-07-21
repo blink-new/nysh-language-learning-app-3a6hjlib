@@ -419,6 +419,362 @@ export const lessonData: { [key: string]: Lesson } = {
       }
     ],
     culturalNote: 'Persian families are typically very close-knit. Extended family relationships are very important in Iranian culture.'
+  },
+
+  '6': {
+    id: '6',
+    title: 'The Legend of Simorgh',
+    type: 'story',
+    level: 'A2',
+    description: 'Learn about the mythical Persian bird through this ancient tale',
+    questions: [
+      {
+        id: '1',
+        type: 'multiple-choice',
+        question: 'What is Simorgh in Persian mythology?',
+        options: ['A magical bird', 'A brave warrior', 'A wise king', 'A beautiful princess'],
+        correctAnswer: 'A magical bird',
+        explanation: 'سیمرغ (Simorgh) is a legendary bird in Persian mythology, known for its wisdom and healing powers.',
+        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      },
+      {
+        id: '2',
+        type: 'sentence-building',
+        question: 'Build: "The bird has beautiful feathers"',
+        words: ['پرنده', 'پرهای', 'زیبا', 'دارد'],
+        correctOrder: [0, 1, 2, 3],
+        correctAnswer: 'پرنده پرهای زیبا دارد',
+        explanation: 'This describes the Simorgh\'s magnificent appearance.'
+      },
+      {
+        id: '3',
+        type: 'translation',
+        question: 'What does "حکیم" mean?',
+        options: ['Wise', 'Strong', 'Fast', 'Beautiful'],
+        correctAnswer: 'Wise',
+        explanation: 'حکیم (hakim) means wise or sage, describing the Simorgh\'s wisdom.'
+      },
+      {
+        id: '4',
+        type: 'audio-match',
+        question: 'Listen to the word for "mountain":',
+        options: ['کوه', 'دریا', 'جنگل', 'صحرا'],
+        correctAnswer: 'کوه',
+        explanation: 'کوه (kuh) means mountain, where the Simorgh lives.',
+        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      },
+      {
+        id: '5',
+        type: 'multiple-choice',
+        question: 'In the story, Simorgh helps...',
+        options: ['Lost travelers', 'Sick animals', 'Both travelers and animals', 'Only kings'],
+        correctAnswer: 'Both travelers and animals',
+        explanation: 'The Simorgh is known for helping all creatures with its healing powers and wisdom.'
+      }
+    ],
+    culturalNote: 'The Simorgh appears in many Persian stories and represents divine wisdom. It\'s often depicted in Persian art and carpets.'
+  },
+
+  '7': {
+    id: '7',
+    title: 'Persian Tea Culture',
+    type: 'culture',
+    level: 'A2',
+    description: 'Discover the rich tradition of tea drinking in Persian culture',
+    questions: [
+      {
+        id: '1',
+        type: 'multiple-choice',
+        question: 'What is the Persian word for tea?',
+        options: ['چای', 'قهوه', 'آب', 'شیر'],
+        correctAnswer: 'چای',
+        explanation: 'چای (chai) is the Persian word for tea, borrowed from Chinese.',
+        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      },
+      {
+        id: '2',
+        type: 'sentence-building',
+        question: 'Build: "Would you like tea?"',
+        words: ['چای', 'می‌خواهید', 'شما'],
+        correctOrder: [2, 0, 1],
+        correctAnswer: 'شما چای می‌خواهید',
+        explanation: 'This is a polite way to offer tea to someone.'
+      },
+      {
+        id: '3',
+        type: 'translation',
+        question: 'What does "استکان" mean?',
+        options: ['Tea glass', 'Sugar', 'Spoon', 'Tray'],
+        correctAnswer: 'Tea glass',
+        explanation: 'استکان (estekan) is the traditional small glass used for drinking tea.'
+      },
+      {
+        id: '4',
+        type: 'audio-match',
+        question: 'Listen to "sugar cube":',
+        options: ['قند', 'شکر', 'عسل', 'شیرینی'],
+        correctAnswer: 'قند',
+        explanation: 'قند (ghand) refers to sugar cubes traditionally served with tea.',
+        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      },
+      {
+        id: '5',
+        type: 'multiple-choice',
+        question: 'In Persian culture, tea is often served with...',
+        options: ['Dates and sweets', 'Bread only', 'Nothing', 'Coffee'],
+        correctAnswer: 'Dates and sweets',
+        explanation: 'Persian tea is traditionally served with dates, sweets, and sometimes nuts.'
+      },
+      {
+        id: '6',
+        type: 'sentence-building',
+        question: 'Build: "Tea is very hot"',
+        words: ['چای', 'خیلی', 'داغ', 'است'],
+        correctOrder: [0, 1, 2, 3],
+        correctAnswer: 'چای خیلی داغ است',
+        explanation: 'Persian tea is traditionally served very hot.'
+      },
+      {
+        id: '7',
+        type: 'translation',
+        question: 'What is "سماور"?',
+        options: ['Traditional tea maker', 'Tea cup', 'Sugar bowl', 'Tea spoon'],
+        correctAnswer: 'Traditional tea maker',
+        explanation: 'سماور (samovar) is the traditional Russian-style tea maker used in Iran.'
+      },
+      {
+        id: '8',
+        type: 'multiple-choice',
+        question: 'When do Persians typically drink tea?',
+        options: ['Only morning', 'Only evening', 'Throughout the day', 'Only with meals'],
+        correctAnswer: 'Throughout the day',
+        explanation: 'Tea is consumed throughout the day in Persian culture, especially after meals.'
+      },
+      {
+        id: '9',
+        type: 'audio-match',
+        question: 'Listen to "guest":',
+        options: ['مهمان', 'میزبان', 'دوست', 'همسایه'],
+        correctAnswer: 'مهمان',
+        explanation: 'مهمان (mehman) means guest. Offering tea to guests is essential in Persian hospitality.',
+        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      },
+      {
+        id: '10',
+        type: 'sentence-building',
+        question: 'Build: "Welcome, please have tea"',
+        words: ['خوش', 'آمدید', 'چای', 'بفرمایید'],
+        correctOrder: [0, 1, 2, 3],
+        correctAnswer: 'خوش آمدید، چای بفرمایید',
+        explanation: 'This is a traditional Persian welcome with tea offering.'
+      }
+    ],
+    culturalNote: 'Tea culture in Iran is deeply rooted in hospitality. Refusing tea when offered can be considered impolite. The tea ceremony is a social ritual that brings people together.'
+  },
+
+  '8': {
+    id: '8',
+    title: 'The Story of Yalda Night',
+    type: 'story',
+    level: 'A2',
+    description: 'Learn about the longest night of the year celebration in Persian culture',
+    questions: [
+      {
+        id: '1',
+        type: 'multiple-choice',
+        question: 'When is Yalda Night celebrated?',
+        options: ['Winter solstice', 'Summer solstice', 'Spring equinox', 'Fall equinox'],
+        correctAnswer: 'Winter solstice',
+        explanation: 'شب یلدا (Shab-e Yalda) is celebrated on the winter solstice, the longest night of the year.',
+        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      },
+      {
+        id: '2',
+        type: 'sentence-building',
+        question: 'Build: "Tonight is very long"',
+        words: ['امشب', 'خیلی', 'طولانی', 'است'],
+        correctOrder: [0, 1, 2, 3],
+        correctAnswer: 'امشب خیلی طولانی است',
+        explanation: 'This describes the longest night of the year.'
+      },
+      {
+        id: '3',
+        type: 'translation',
+        question: 'What fruit is traditionally eaten on Yalda?',
+        options: ['Watermelon', 'Apple', 'Orange', 'Banana'],
+        correctAnswer: 'Watermelon',
+        explanation: 'هندوانه (hendovaneh) - watermelon is eaten to symbolize summer and warmth.'
+      },
+      {
+        id: '4',
+        type: 'audio-match',
+        question: 'Listen to "pomegranate":',
+        options: ['انار', 'سیب', 'پرتقال', 'موز'],
+        correctAnswer: 'انار',
+        explanation: 'انار (anar) - pomegranate represents the red color of dawn and life.',
+        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      },
+      {
+        id: '5',
+        type: 'multiple-choice',
+        question: 'What do families do on Yalda Night?',
+        options: ['Stay awake together', 'Sleep early', 'Work late', 'Travel'],
+        correctAnswer: 'Stay awake together',
+        explanation: 'Families gather and stay awake to welcome the return of longer days.'
+      }
+    ],
+    culturalNote: 'Yalda Night celebrates the victory of light over darkness. Families read poetry, especially Hafez, and share stories while eating fruits and nuts.'
+  },
+
+  '9': {
+    id: '9',
+    title: 'Colors and Descriptions',
+    type: 'regular',
+    level: 'A1',
+    description: 'Learn colors and basic descriptive words in Farsi',
+    questions: [
+      {
+        id: '1',
+        type: 'multiple-choice',
+        question: 'How do you say "red" in Farsi?',
+        options: ['قرمز', 'آبی', 'زرد', 'سبز'],
+        correctAnswer: 'قرمز',
+        explanation: 'قرمز (ghermez) means red in Farsi.',
+        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      },
+      {
+        id: '2',
+        type: 'sentence-building',
+        question: 'Build: "The sky is blue"',
+        words: ['آسمان', 'آبی', 'است'],
+        correctOrder: [0, 1, 2],
+        correctAnswer: 'آسمان آبی است',
+        explanation: 'This describes the color of the sky.'
+      },
+      {
+        id: '3',
+        type: 'audio-match',
+        question: 'Listen to the word for "green":',
+        options: ['سبز', 'زرد', 'نارنجی', 'بنفش'],
+        correctAnswer: 'سبز',
+        explanation: 'سبز (sabz) means green.',
+        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      },
+      {
+        id: '4',
+        type: 'translation',
+        question: 'What does "بزرگ" mean?',
+        options: ['Big', 'Small', 'Fast', 'Slow'],
+        correctAnswer: 'Big',
+        explanation: 'بزرگ (bozorg) means big or large.'
+      },
+      {
+        id: '5',
+        type: 'multiple-choice',
+        question: 'How do you say "beautiful"?',
+        options: ['زیبا', 'زشت', 'بزرگ', 'کوچک'],
+        correctAnswer: 'زیبا',
+        explanation: 'زیبا (ziba) means beautiful.'
+      },
+      {
+        id: '6',
+        type: 'sentence-building',
+        question: 'Build: "The flower is yellow"',
+        words: ['گل', 'زرد', 'است'],
+        correctOrder: [0, 1, 2],
+        correctAnswer: 'گل زرد است',
+        explanation: 'This describes a yellow flower.'
+      },
+      {
+        id: '7',
+        type: 'translation',
+        question: 'What is the opposite of "بزرگ"?',
+        options: ['کوچک', 'زیبا', 'سریع', 'آهسته'],
+        correctAnswer: 'کوچک',
+        explanation: 'کوچک (kuchak) means small, opposite of big.'
+      },
+      {
+        id: '8',
+        type: 'audio-match',
+        question: 'Listen to "white":',
+        options: ['سفید', 'سیاه', 'خاکستری', 'قهوه‌ای'],
+        correctAnswer: 'سفید',
+        explanation: 'سفید (sefid) means white.',
+        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      },
+      {
+        id: '9',
+        type: 'multiple-choice',
+        question: 'How do you say "old" (for things)?',
+        options: ['کهنه', 'جدید', 'تازه', 'نو'],
+        correctAnswer: 'کهنه',
+        explanation: 'کهنه (kohaneh) means old for objects.'
+      },
+      {
+        id: '10',
+        type: 'sentence-building',
+        question: 'Build: "This car is new"',
+        words: ['این', 'ماشین', 'نو', 'است'],
+        correctOrder: [0, 1, 2, 3],
+        correctAnswer: 'این ماشین نو است',
+        explanation: 'نو (no) means new.'
+      }
+    ],
+    culturalNote: 'Colors have special meanings in Persian culture. Green represents nature and Islam, red symbolizes bravery, and white represents purity.'
+  },
+
+  '10': {
+    id: '10',
+    title: 'The Wise Mulla Nasruddin',
+    type: 'story',
+    level: 'A2',
+    description: 'Learn from the humorous and wise tales of Mulla Nasruddin',
+    questions: [
+      {
+        id: '1',
+        type: 'multiple-choice',
+        question: 'Who is Mulla Nasruddin?',
+        options: ['A wise fool character', 'A real historical king', 'A famous poet', 'A brave warrior'],
+        correctAnswer: 'A wise fool character',
+        explanation: 'ملا نصرالدین (Mulla Nasruddin) is a beloved character in Persian folklore known for his wisdom disguised as foolishness.',
+        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      },
+      {
+        id: '2',
+        type: 'sentence-building',
+        question: 'Build: "The man is very clever"',
+        words: ['مرد', 'خیلی', 'باهوش', 'است'],
+        correctOrder: [0, 1, 2, 3],
+        correctAnswer: 'مرد خیلی باهوش است',
+        explanation: 'باهوش (bahush) means clever or intelligent.'
+      },
+      {
+        id: '3',
+        type: 'translation',
+        question: 'What does "حکایت" mean?',
+        options: ['Story/tale', 'Book', 'Poem', 'Song'],
+        correctAnswer: 'Story/tale',
+        explanation: 'حکایت (hekayat) means story or tale, often with a moral lesson.'
+      },
+      {
+        id: '4',
+        type: 'audio-match',
+        question: 'Listen to "wisdom":',
+        options: ['حکمت', 'احمقی', 'شادی', 'غم'],
+        correctAnswer: 'حکمت',
+        explanation: 'حکمت (hekmat) means wisdom.',
+        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+      },
+      {
+        id: '5',
+        type: 'multiple-choice',
+        question: 'Nasruddin stories teach us...',
+        options: ['Life lessons through humor', 'How to be rich', 'How to fight', 'How to cook'],
+        correctAnswer: 'Life lessons through humor',
+        explanation: 'Nasruddin stories use humor to teach profound life lessons and wisdom.'
+      }
+    ],
+    culturalNote: 'Mulla Nasruddin stories are shared across many cultures from Turkey to Central Asia. They teach wisdom through humor and are beloved by children and adults alike.'
   }
 };
 

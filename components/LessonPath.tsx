@@ -11,6 +11,8 @@ export function LessonPath() {
     if (completed) return '✅';
     
     switch (type) {
+      case 'alphabet':
+        return '🔤';
       case 'regular':
         return '📚';
       case 'story':
@@ -45,6 +47,8 @@ export function LessonPath() {
 
   const getTypeColor = (type: string) => {
     switch (type) {
+      case 'alphabet':
+        return '#10B981';
       case 'story':
         return '#F59E0B';
       case 'grammar':
@@ -107,9 +111,15 @@ export function LessonPath() {
                 </View>
               </View>
 
+              {lesson.type === 'alphabet' && (
+                <View style={styles.alphabetBanner}>
+                  <Text style={styles.alphabetBannerText}>🔤 Alphabet Learning • Letters & Sounds</Text>
+                </View>
+              )}
+
               {lesson.type === 'story' && (
                 <View style={styles.storyBanner}>
-                  <Text style={styles.storyBannerText}>📚 Cultural Story • 5 Questions</Text>
+                  <Text style={styles.storyBannerText}>📚 Cultural Story • Read & Answer Questions</Text>
                 </View>
               )}
 
@@ -223,6 +233,20 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: '600',
+  },
+  alphabetBanner: {
+    marginTop: 12,
+    padding: 8,
+    backgroundColor: '#F0FDF4',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#10B981',
+  },
+  alphabetBannerText: {
+    color: '#065F46',
+    fontSize: 12,
+    fontWeight: '600',
+    textAlign: 'center',
   },
   storyBanner: {
     marginTop: 12,

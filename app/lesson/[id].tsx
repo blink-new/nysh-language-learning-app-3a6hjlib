@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Alert, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { LionMascot } from '@/components/LionMascot';
 import { HeartsSystem } from '@/components/HeartsSystem';
 import { SentenceBuilder } from '@/components/SentenceBuilder';
 import { AudioPlayer } from '@/components/AudioPlayer';
+import { StoryDisplay } from '@/components/StoryDisplay';
+import { AlphabetCard } from '@/components/AlphabetCard';
 import { getLesson, Question } from '@/data/lessonData';
 
 export default function LessonScreen() {
@@ -18,17 +20,22 @@ export default function LessonScreen() {
   const [lionMessage, setLionMessage] = useState("Let's start this lesson! 🦁");
   const [lionMood, setLionMood] = useState<'happy' | 'encouraging' | 'celebrating' | 'questioning' | 'sad'>('questioning');
   const [gameOver, setGameOver] = useState(false);
+  const [showStory, setShowStory] = useState(false);
 
   const lesson = getLesson(id as string);
   const currentQuestion = lesson?.questions[currentQuestionIndex];
-  const maxQuestions = lesson?.type === 'story' ? 5 : 10;
+  const maxQuestions = lesson?.questions.length || 10;
 
   useEffect(() => {
-    if (currentQuestion) {
+    if (lesson?.type === 'story' && lesson.story) {
+      setShowStory(true);
+      setLionMessage(`📖 Let's read "${lesson.story.title}" together!`);
+      setLionMood('happy');
+    } else if (currentQuestion) {
       setLionMessage(`Question ${currentQuestionIndex + 1}: ${currentQuestion.question}`);
       setLionMood('questioning');
     }
-  }, [currentQuestionIndex, currentQuestion]);
+  }, [currentQuestionIndex, currentQuestion, lesson]);
 
   useEffect(() => {
     if (hearts === 0) {
@@ -45,6 +52,12 @@ export default function LessonScreen() {
       </SafeAreaView>
     );
   }
+
+  const handleStoryComplete = () => {
+    setShowStory(false);
+    setLionMessage(`Great! Now let's test your understanding with some questions! 🎯`);
+    setLionMood('encouraging');
+  };
 
   const handleAnswerSelect = (answer: string) => {
     setSelectedAnswer(answer);
@@ -76,21 +89,21 @@ export default function LessonScreen() {
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestionIndex < lesson.questions.length - 1 && currentQuestionIndex < maxQuestions - 1) {
+    if (currentQuestionIndex < lesson.questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedAnswer(null);
       setShowExplanation(false);
     } else {
       // Lesson complete - navigate to completion screen
       const xpEarned = score * 25; // 25 XP per correct answer
-      const badge = score === Math.min(lesson.questions.length, maxQuestions) ? 'perfect-score' : null;
+      const badge = score === lesson.questions.length ? 'perfect-score' : null;
       
       router.push({
         pathname: '/lesson-complete',
         params: {
           lessonTitle: lesson.title,
           score: score.toString(),
-          totalQuestions: Math.min(lesson.questions.length, maxQuestions).toString(),
+          totalQuestions: lesson.questions.length.toString(),
           xpEarned: xpEarned.toString(),
           badge: badge || '',
         }
@@ -106,10 +119,55 @@ export default function LessonScreen() {
     setLionMood('happy');
   };
 
-  const progress = ((currentQuestionIndex + 1) / Math.min(lesson.questions.length, maxQuestions)) * 100;
+  const progress = ((currentQuestionIndex + 1) / maxQuestions) * 100;
+
+  const renderAlphabetQuestion = () => {
+    if (!currentQuestion || currentQuestion.type !== 'alphabet-sound') return null;
+
+    return (
+      <View style={styles.alphabetContainer}>
+        <AlphabetCard
+          letter={currentQuestion.letter || ''}
+          sound={currentQuestion.sound || ''}
+          explanation={currentQuestion.explanation}
+          showAudio={true}
+        />
+        
+        <View style={styles.optionsContainer}>
+          <Text style={styles.alphabetQuestionText}>
+            What sound does this letter make?
+          </Text>
+          {currentQuestion.options?.map((option, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.optionButton,
+                selectedAnswer === option && styles.selectedOption,
+                showExplanation && option === currentQuestion.correctAnswer && styles.correctOption,
+                showExplanation && selectedAnswer === option && option !== currentQuestion.correctAnswer && styles.incorrectOption,
+              ]}
+              onPress={() => handleAnswerSelect(option)}
+              disabled={showExplanation}
+            >
+              <Text style={[
+                styles.optionText,
+                selectedAnswer === option && styles.selectedOptionText,
+              ]}>
+                {option}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </View>
+    );
+  };
 
   const renderQuestion = () => {
     if (!currentQuestion) return null;
+
+    if (currentQuestion.type === 'alphabet-sound') {
+      return renderAlphabetQuestion();
+    }
 
     switch (currentQuestion.type) {
       case 'sentence-building':
@@ -127,11 +185,13 @@ export default function LessonScreen() {
         return (
           <View style={styles.audioQuestionContainer}>
             <AudioPlayer
-              audioUrl={currentQuestion.audioUrl}
-              text="🎧 Listen carefully"
+              text={currentQuestion.correctAnswer}
               size="large"
-              autoPlay={false}
+              showText={false}
             />
+            <Text style={styles.audioInstructions}>
+              🎧 Listen carefully and select the correct answer
+            </Text>
             
             <View style={styles.optionsContainer}>
               {currentQuestion.options?.map((option, index) => (
@@ -161,15 +221,6 @@ export default function LessonScreen() {
       default:
         return (
           <View style={styles.standardQuestionContainer}>
-            {currentQuestion.audioUrl && (
-              <AudioPlayer
-                audioUrl={currentQuestion.audioUrl}
-                text="🔊 Listen to pronunciation"
-                size="medium"
-                autoPlay={false}
-              />
-            )}
-            
             <View style={styles.optionsContainer}>
               {currentQuestion.options?.map((option, index) => (
                 <TouchableOpacity
@@ -225,6 +276,35 @@ export default function LessonScreen() {
     );
   }
 
+  if (showStory && lesson.story) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity 
+            style={styles.backButton}
+            onPress={() => router.back()}
+          >
+            <Text style={styles.backButtonText}>← Back</Text>
+          </TouchableOpacity>
+          
+          <View style={styles.lessonInfo}>
+            <Text style={styles.lessonTitle}>{lesson.title}</Text>
+            <Text style={styles.lessonType}>
+              📖 Story Lesson • {lesson.level}
+            </Text>
+          </View>
+          
+          <HeartsSystem hearts={hearts} maxHearts={5} />
+        </View>
+
+        <StoryDisplay 
+          story={lesson.story}
+          onContinue={handleStoryComplete}
+        />
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -242,7 +322,10 @@ export default function LessonScreen() {
           <View style={styles.lessonInfo}>
             <Text style={styles.lessonTitle}>{lesson.title}</Text>
             <Text style={styles.lessonType}>
-              {lesson.type.charAt(0).toUpperCase() + lesson.type.slice(1)} • {lesson.level}
+              {lesson.type === 'alphabet' ? '🔤' : 
+               lesson.type === 'story' ? '📖' : 
+               lesson.type === 'grammar' ? '📝' : 
+               lesson.type === 'culture' ? '🏛️' : '📚'} {lesson.type.charAt(0).toUpperCase() + lesson.type.slice(1)} • {lesson.level}
             </Text>
           </View>
           
@@ -253,7 +336,7 @@ export default function LessonScreen() {
               <View style={[styles.progressFill, { width: `${progress}%` }]} />
             </View>
             <Text style={styles.progressText}>
-              {currentQuestionIndex + 1} / {Math.min(lesson.questions.length, maxQuestions)}
+              {currentQuestionIndex + 1} / {maxQuestions}
             </Text>
           </View>
         </Animated.View>
@@ -270,7 +353,9 @@ export default function LessonScreen() {
               style={styles.questionContainer}
               entering={FadeInDown.duration(600)}
             >
-              <Text style={styles.questionText}>{currentQuestion.question}</Text>
+              {currentQuestion.type !== 'alphabet-sound' && (
+                <Text style={styles.questionText}>{currentQuestion.question}</Text>
+              )}
               
               {renderQuestion()}
 
@@ -289,7 +374,7 @@ export default function LessonScreen() {
                     onPress={handleNextQuestion}
                   >
                     <Text style={styles.nextButtonText}>
-                      {currentQuestionIndex < Math.min(lesson.questions.length, maxQuestions) - 1 ? 'Next Question' : 'Complete Lesson'}
+                      {currentQuestionIndex < lesson.questions.length - 1 ? 'Next Question' : 'Complete Lesson'}
                     </Text>
                   </TouchableOpacity>
                 ) : null}
@@ -385,8 +470,27 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     lineHeight: 28,
   },
+  alphabetContainer: {
+    alignItems: 'center',
+  },
+  alphabetQuestionText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#1F2937',
+    textAlign: 'center',
+    marginBottom: 16,
+    marginTop: 20,
+  },
   audioQuestionContainer: {
     alignItems: 'center',
+  },
+  audioInstructions: {
+    fontSize: 16,
+    color: '#6B7280',
+    textAlign: 'center',
+    marginTop: 12,
+    marginBottom: 20,
+    fontStyle: 'italic',
   },
   standardQuestionContainer: {
     alignItems: 'center',

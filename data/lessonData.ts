@@ -1,6 +1,6 @@
 export interface Question {
   id: string;
-  type: 'multiple-choice' | 'translation' | 'listening' | 'sentence-building' | 'audio-match';
+  type: 'multiple-choice' | 'translation' | 'listening' | 'sentence-building' | 'audio-match' | 'alphabet-sound';
   question: string;
   options?: string[];
   correctAnswer: string;
@@ -9,14 +9,24 @@ export interface Question {
   audioUrl?: string;
   words?: string[]; // For sentence building
   correctOrder?: number[]; // For sentence building
+  letter?: string; // For alphabet lessons
+  sound?: string; // For alphabet lessons
+}
+
+export interface StoryContent {
+  title: string;
+  text: string;
+  translation?: string;
+  audioText: string;
 }
 
 export interface Lesson {
   id: string;
   title: string;
-  type: 'regular' | 'story' | 'grammar' | 'culture';
+  type: 'alphabet' | 'regular' | 'story' | 'grammar' | 'culture';
   level: 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
   description?: string;
+  story?: StoryContent; // For story lessons
   questions: Question[];
   culturalNote?: string;
 }
@@ -24,6 +34,140 @@ export interface Lesson {
 export const lessonData: { [key: string]: Lesson } = {
   '1': {
     id: '1',
+    title: 'Persian Alphabet - Part 1 (ا to ت)',
+    type: 'alphabet',
+    level: 'A1',
+    description: 'Learn the first 6 letters of the Persian alphabet and their sounds',
+    questions: [
+      {
+        id: '1',
+        type: 'alphabet-sound',
+        question: 'This is the letter "ا" (Alef). It makes the "a" sound like in "father".',
+        letter: 'ا',
+        sound: 'a',
+        correctAnswer: 'a',
+        explanation: 'ا (Alef) is the first letter of the Persian alphabet and makes the "a" sound.',
+        options: ['a', 'e', 'i', 'o']
+      },
+      {
+        id: '2',
+        type: 'alphabet-sound',
+        question: 'This is the letter "ب" (Be). It makes the "b" sound like in "book".',
+        letter: 'ب',
+        sound: 'b',
+        correctAnswer: 'b',
+        explanation: 'ب (Be) makes the "b" sound, just like in English.',
+        options: ['b', 'p', 'd', 't']
+      },
+      {
+        id: '3',
+        type: 'alphabet-sound',
+        question: 'This is the letter "پ" (Pe). It makes the "p" sound like in "pen".',
+        letter: 'پ',
+        sound: 'p',
+        correctAnswer: 'p',
+        explanation: 'پ (Pe) is unique to Persian and makes the "p" sound.',
+        options: ['b', 'p', 'f', 'v']
+      },
+      {
+        id: '4',
+        type: 'alphabet-sound',
+        question: 'This is the letter "ت" (Te). It makes the "t" sound like in "top".',
+        letter: 'ت',
+        sound: 't',
+        correctAnswer: 't',
+        explanation: 'ت (Te) makes the "t" sound.',
+        options: ['t', 'd', 's', 'z']
+      },
+      {
+        id: '5',
+        type: 'multiple-choice',
+        question: 'Which letter makes the "p" sound?',
+        options: ['ب', 'پ', 'ت', 'ا'],
+        correctAnswer: 'پ',
+        explanation: 'پ (Pe) is the letter that makes the "p" sound in Persian.'
+      },
+      {
+        id: '6',
+        type: 'multiple-choice',
+        question: 'Which letter comes first in the Persian alphabet?',
+        options: ['ب', 'ت', 'ا', 'پ'],
+        correctAnswer: 'ا',
+        explanation: 'ا (Alef) is the first letter of the Persian alphabet.'
+      }
+    ],
+    culturalNote: 'Persian is written from right to left, and letters connect to each other in most cases. The alphabet has 32 letters!'
+  },
+
+  '2': {
+    id: '2',
+    title: 'Persian Alphabet - Part 2 (ث to ح)',
+    type: 'alphabet',
+    level: 'A1',
+    description: 'Continue learning the Persian alphabet with the next set of letters',
+    questions: [
+      {
+        id: '1',
+        type: 'alphabet-sound',
+        question: 'This is the letter "ث" (Se). It makes the "s" sound like in "sun".',
+        letter: 'ث',
+        sound: 's',
+        correctAnswer: 's',
+        explanation: 'ث (Se) makes the "s" sound in Persian.',
+        options: ['s', 'z', 'sh', 'th']
+      },
+      {
+        id: '2',
+        type: 'alphabet-sound',
+        question: 'This is the letter "ج" (Jim). It makes the "j" sound like in "jump".',
+        letter: 'ج',
+        sound: 'j',
+        correctAnswer: 'j',
+        explanation: 'ج (Jim) makes the "j" sound.',
+        options: ['j', 'ch', 'g', 'k']
+      },
+      {
+        id: '3',
+        type: 'alphabet-sound',
+        question: 'This is the letter "چ" (Che). It makes the "ch" sound like in "chair".',
+        letter: 'چ',
+        sound: 'ch',
+        correctAnswer: 'ch',
+        explanation: 'چ (Che) is unique to Persian and makes the "ch" sound.',
+        options: ['j', 'ch', 'sh', 'zh']
+      },
+      {
+        id: '4',
+        type: 'alphabet-sound',
+        question: 'This is the letter "ح" (He). It makes a soft "h" sound.',
+        letter: 'ح',
+        sound: 'h',
+        correctAnswer: 'h',
+        explanation: 'ح (He) makes a soft "h" sound from the throat.',
+        options: ['h', 'kh', 'gh', 'a']
+      },
+      {
+        id: '5',
+        type: 'multiple-choice',
+        question: 'Which letter makes the "ch" sound?',
+        options: ['ج', 'چ', 'ح', 'ث'],
+        correctAnswer: 'چ',
+        explanation: 'چ (Che) makes the "ch" sound and is unique to Persian.'
+      },
+      {
+        id: '6',
+        type: 'multiple-choice',
+        question: 'How many letters are in the complete Persian alphabet?',
+        options: ['26', '28', '32', '36'],
+        correctAnswer: '32',
+        explanation: 'The Persian alphabet has 32 letters in total.'
+      }
+    ],
+    culturalNote: 'Some Persian letters like چ (che) and پ (pe) don\'t exist in Arabic, making Persian unique!'
+  },
+
+  '3': {
+    id: '3',
     title: 'Basic Greetings',
     type: 'regular',
     level: 'A1',
@@ -35,8 +179,7 @@ export const lessonData: { [key: string]: Lesson } = {
         question: 'How do you say "Hello" in Farsi?',
         options: ['سلام', 'خداحافظ', 'ممنون', 'بله'],
         correctAnswer: 'سلام',
-        explanation: 'سلام (salaam) is the most common way to say hello in Farsi!',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        explanation: 'سلام (salaam) is the most common way to say hello in Farsi!'
       },
       {
         id: '2',
@@ -44,8 +187,7 @@ export const lessonData: { [key: string]: Lesson } = {
         question: 'Listen and select the correct greeting:',
         options: ['صبح بخیر', 'شب بخیر', 'ظهر بخیر', 'عصر بخیر'],
         correctAnswer: 'صبح بخیر',
-        explanation: 'صبح بخیر (sobh bekheir) means "good morning" in Farsi.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        explanation: 'صبح بخیر (sobh bekheir) means "good morning" in Farsi.'
       },
       {
         id: '3',
@@ -62,8 +204,7 @@ export const lessonData: { [key: string]: Lesson } = {
         question: 'What does "خداحافظ" mean?',
         options: ['Hello', 'Thank you', 'Goodbye', 'Please'],
         correctAnswer: 'Goodbye',
-        explanation: 'خداحافظ (khodahafez) means "goodbye" - literally "God protect you".',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        explanation: 'خداحافظ (khodahafez) means "goodbye" - literally "God protect you".'
       },
       {
         id: '5',
@@ -72,60 +213,23 @@ export const lessonData: { [key: string]: Lesson } = {
         options: ['ممنون', 'خواهش می‌کنم', 'ببخشید', 'سلام'],
         correctAnswer: 'ممنون',
         explanation: 'ممنون (mamnoon) is the most common way to say thank you.'
-      },
-      {
-        id: '6',
-        type: 'sentence-building',
-        question: 'Build: "Thank you very much"',
-        words: ['خیلی', 'ممنون', 'متشکرم'],
-        correctOrder: [1, 0],
-        correctAnswer: 'ممنون خیلی',
-        explanation: 'خیلی ممنون means "thank you very much" in Farsi.'
-      },
-      {
-        id: '7',
-        type: 'multiple-choice',
-        question: 'Which greeting is used in the evening?',
-        options: ['صبح بخیر', 'ظهر بخیر', 'عصر بخیر', 'شب بخیر'],
-        correctAnswer: 'عصر بخیر',
-        explanation: 'عصر بخیر (asr bekheir) is used in the evening/afternoon.'
-      },
-      {
-        id: '8',
-        type: 'audio-match',
-        question: 'Listen and identify this farewell:',
-        options: ['سلام', 'خداحافظ', 'ممنون', 'ببخشید'],
-        correctAnswer: 'خداحافظ',
-        explanation: 'خداحافظ is the standard way to say goodbye.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '9',
-        type: 'translation',
-        question: 'What does "خوش آمدید" mean?',
-        options: ['Welcome', 'Goodbye', 'Hello', 'Thank you'],
-        correctAnswer: 'Welcome',
-        explanation: 'خوش آمدید (khosh amadid) means "welcome" - used to greet guests.'
-      },
-      {
-        id: '10',
-        type: 'sentence-building',
-        question: 'Build: "You are welcome"',
-        words: ['خواهش', 'می‌کنم', 'شما'],
-        correctOrder: [0, 1],
-        correctAnswer: 'خواهش می‌کنم',
-        explanation: 'خواهش می‌کنم is the polite response to "thank you".'
       }
     ],
     culturalNote: 'In Persian culture, greetings are very important and show respect. Always greet elders first!'
   },
-  
-  '2': {
-    id: '2',
+
+  '4': {
+    id: '4',
     title: 'The Tale of Rostam',
     type: 'story',
     level: 'A1',
     description: 'A simplified version of the famous Persian hero story',
+    story: {
+      title: 'رستم قهرمان',
+      text: 'رستم قهرمان بزرگ ایران بود. او خیلی قوی و شجاع بود. رستم اسب زیبایی داشت به نام رخش. رخش اسب باهوش و وفاداری بود. رستم و رخش با هم ماجراهای زیادی داشتند. آنها همیشه مردم را کمک می‌کردند.',
+      translation: 'Rostam was a great hero of Iran. He was very strong and brave. Rostam had a beautiful horse named Rakhsh. Rakhsh was a smart and loyal horse. Rostam and Rakhsh had many adventures together. They always helped people.',
+      audioText: 'رستم قهرمان بزرگ ایران بود. او خیلی قوی و شجاع بود.'
+    },
     questions: [
       {
         id: '1',
@@ -133,8 +237,7 @@ export const lessonData: { [key: string]: Lesson } = {
         question: 'Rostam was a famous Persian...',
         options: ['hero', 'king', 'poet', 'merchant'],
         correctAnswer: 'hero',
-        explanation: 'رستم (Rostam) is the greatest hero in Persian mythology from the Shahnameh.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        explanation: 'رستم (Rostam) is the greatest hero in Persian mythology from the Shahnameh.'
       },
       {
         id: '2',
@@ -163,19 +266,18 @@ export const lessonData: { [key: string]: Lesson } = {
       },
       {
         id: '5',
-        type: 'audio-match',
-        question: 'Listen to this word meaning "brave":',
-        options: ['شجاع', 'ضعیف', 'ترسو', 'آرام'],
-        correctAnswer: 'شجاع',
-        explanation: 'شجاع (shoja) means brave, a key quality of heroes.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        type: 'multiple-choice',
+        question: 'According to the story, what did Rostam and Rakhsh always do?',
+        options: ['Help people', 'Fight wars', 'Travel alone', 'Sleep'],
+        correctAnswer: 'Help people',
+        explanation: 'The story says they always helped people (همیشه مردم را کمک می‌کردند).'
       }
     ],
     culturalNote: 'The Shahnameh (Book of Kings) by Ferdowsi is Iran\'s national epic, containing stories like Rostam that every Persian child knows.'
   },
 
-  '3': {
-    id: '3',
+  '5': {
+    id: '5',
     title: 'Present Tense Verbs',
     type: 'grammar',
     level: 'A1',
@@ -187,8 +289,7 @@ export const lessonData: { [key: string]: Lesson } = {
         question: 'How do you say "I am" in Farsi?',
         options: ['من هستم', 'تو هستی', 'او است', 'ما هستیم'],
         correctAnswer: 'من هستم',
-        explanation: 'من هستم (man hastam) means "I am" in Farsi.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        explanation: 'من هستم (man hastam) means "I am" in Farsi.'
       },
       {
         id: '2',
@@ -221,61 +322,24 @@ export const lessonData: { [key: string]: Lesson } = {
         question: 'Listen to "We are":',
         options: ['ما هستیم', 'شما هستید', 'آنها هستند', 'من هستم'],
         correctAnswer: 'ما هستیم',
-        explanation: 'ما هستیم (ma hastim) means "we are".',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '6',
-        type: 'sentence-building',
-        question: 'Build: "They are eating"',
-        words: ['آنها', 'دارند', 'می‌خورند', 'غذا'],
-        correctOrder: [0, 1, 3, 2],
-        correctAnswer: 'آنها دارند غذا می‌خورند',
-        explanation: 'This is the present continuous tense in Farsi.'
-      },
-      {
-        id: '7',
-        type: 'multiple-choice',
-        question: 'How do you say "You (plural) are"?',
-        options: ['شما هستید', 'تو هستی', 'ما هستیم', 'آنها هستند'],
-        correctAnswer: 'شما هستید',
-        explanation: 'شما هستید (shoma hastid) is the formal/plural "you are".'
-      },
-      {
-        id: '8',
-        type: 'translation',
-        question: 'What does "می‌خوانم" mean?',
-        options: ['I read', 'I write', 'I speak', 'I listen'],
-        correctAnswer: 'I read',
-        explanation: 'می‌خوانم (mikhanam) means "I read" in present tense.'
-      },
-      {
-        id: '9',
-        type: 'sentence-building',
-        question: 'Build: "He is working"',
-        words: ['او', 'دارد', 'کار', 'می‌کند'],
-        correctOrder: [0, 1, 2, 3],
-        correctAnswer: 'او دارد کار می‌کند',
-        explanation: 'Present continuous: subject + دارد + object + verb'
-      },
-      {
-        id: '10',
-        type: 'multiple-choice',
-        question: 'Which verb means "to come"?',
-        options: ['آمدن', 'رفتن', 'خوردن', 'نوشتن'],
-        correctAnswer: 'آمدن',
-        explanation: 'آمدن (amadan) means "to come" in Farsi.'
+        explanation: 'ما هستیم (ma hastim) means "we are".'
       }
     ],
     culturalNote: 'Farsi verbs change their endings based on who is doing the action, similar to Spanish or French.'
   },
 
-  '4': {
-    id: '4',
+  '6': {
+    id: '6',
     title: 'Persian New Year Story',
     type: 'story',
     level: 'A2',
     description: 'Learn about Nowruz, the Persian New Year celebration',
+    story: {
+      title: 'نوروز - سال نو ایرانی',
+      text: 'نوروز بزرگترین جشن ایرانی است. نوروز در اولین روز بهار جشن گرفته می‌شود. خانواده‌ها دور هم جمع می‌شوند و هفت سین می‌چینند. هفت سین میزی است با هفت چیز که با حرف "س" شروع می‌شود. مردم لباس نو می‌پوشند و به دیدار یکدیگر می‌روند. نوروز سیزده روز طول می‌کشد.',
+      translation: 'Nowruz is the biggest Iranian celebration. Nowruz is celebrated on the first day of spring. Families gather together and set up Haft-Sin. Haft-Sin is a table with seven things that start with the letter "S". People wear new clothes and visit each other. Nowruz lasts thirteen days.',
+      audioText: 'نوروز بزرگترین جشن ایرانی است. نوروز در اولین روز بهار جشن گرفته می‌شود.'
+    },
     questions: [
       {
         id: '1',
@@ -283,8 +347,7 @@ export const lessonData: { [key: string]: Lesson } = {
         question: 'When is Persian New Year celebrated?',
         options: ['Spring equinox', 'January 1st', 'Summer solstice', 'Winter solstice'],
         correctAnswer: 'Spring equinox',
-        explanation: 'نوروز (Nowruz) is celebrated on the spring equinox, around March 20th.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        explanation: 'نوروز (Nowruz) is celebrated on the spring equinox, around March 20th.'
       },
       {
         id: '2',
@@ -305,27 +368,26 @@ export const lessonData: { [key: string]: Lesson } = {
       },
       {
         id: '4',
-        type: 'audio-match',
-        question: 'Listen to this Nowruz greeting:',
-        options: ['نوروز مبارک', 'سلام', 'خداحافظ', 'ممنون'],
-        correctAnswer: 'نوروز مبارک',
-        explanation: 'نوروز مبارک means "Happy Nowruz".',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '5',
         type: 'multiple-choice',
         question: 'How long does Nowruz celebration last?',
         options: ['13 days', '7 days', '3 days', '1 day'],
         correctAnswer: '13 days',
         explanation: 'Nowruz celebrations last 13 days, ending with Sizdeh Bedar (13th day outdoors).'
+      },
+      {
+        id: '5',
+        type: 'multiple-choice',
+        question: 'According to the story, what do families do during Nowruz?',
+        options: ['Gather together and set up Haft-Sin', 'Go to work', 'Stay alone', 'Sleep all day'],
+        correctAnswer: 'Gather together and set up Haft-Sin',
+        explanation: 'The story mentions families gather and set up Haft-Sin (خانواده‌ها دور هم جمع می‌شوند و هفت سین می‌چینند).'
       }
     ],
     culturalNote: 'Nowruz is over 3,000 years old and is celebrated by over 300 million people worldwide, not just in Iran!'
   },
 
-  '5': {
-    id: '5',
+  '7': {
+    id: '7',
     title: 'Family and Relationships',
     type: 'regular',
     level: 'A1',
@@ -337,8 +399,7 @@ export const lessonData: { [key: string]: Lesson } = {
         question: 'How do you say "mother" in Farsi?',
         options: ['مادر', 'پدر', 'برادر', 'خواهر'],
         correctAnswer: 'مادر',
-        explanation: 'مادر (madar) means mother. Also commonly called مامان (maman).',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        explanation: 'مادر (madar) means mother. Also commonly called مامان (maman).'
       },
       {
         id: '2',
@@ -355,8 +416,7 @@ export const lessonData: { [key: string]: Lesson } = {
         question: 'Listen to the word for "brother":',
         options: ['برادر', 'خواهر', 'پسر', 'دختر'],
         correctAnswer: 'برادر',
-        explanation: 'برادر (baradar) means brother.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        explanation: 'برادر (baradar) means brother.'
       },
       {
         id: '4',
@@ -373,60 +433,23 @@ export const lessonData: { [key: string]: Lesson } = {
         options: ['مادربزرگ', 'پدربزرگ', 'عمو', 'خاله'],
         correctAnswer: 'مادربزرگ',
         explanation: 'مادربزرگ (madar bozorg) literally means "big mother".'
-      },
-      {
-        id: '6',
-        type: 'sentence-building',
-        question: 'Build: "I have two sisters"',
-        words: ['من', 'دو', 'خواهر', 'دارم'],
-        correctOrder: [0, 1, 2, 3],
-        correctAnswer: 'من دو خواهر دارم',
-        explanation: 'دارم means "I have" in Farsi.'
-      },
-      {
-        id: '7',
-        type: 'translation',
-        question: 'What is "عمو"?',
-        options: ['Uncle (father\'s side)', 'Uncle (mother\'s side)', 'Cousin', 'Nephew'],
-        correctAnswer: 'Uncle (father\'s side)',
-        explanation: 'عمو (amo) is father\'s brother. Mother\'s brother is دایی (dayi).'
-      },
-      {
-        id: '8',
-        type: 'audio-match',
-        question: 'Listen to "daughter":',
-        options: ['دختر', 'پسر', 'بچه', 'کودک'],
-        correctAnswer: 'دختر',
-        explanation: 'دختر (dokhtar) means daughter or girl.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '9',
-        type: 'multiple-choice',
-        question: 'How do you say "my wife"?',
-        options: ['همسر من', 'زن من', 'مادر من', 'دوست من'],
-        correctAnswer: 'همسر من',
-        explanation: 'همسر (hamsar) is the polite term for spouse.'
-      },
-      {
-        id: '10',
-        type: 'sentence-building',
-        question: 'Build: "Our family is big"',
-        words: ['خانواده', 'ما', 'بزرگ', 'است'],
-        correctOrder: [0, 1, 2, 3],
-        correctAnswer: 'خانواده ما بزرگ است',
-        explanation: 'This describes a large family in Farsi.'
       }
     ],
     culturalNote: 'Persian families are typically very close-knit. Extended family relationships are very important in Iranian culture.'
   },
 
-  '6': {
-    id: '6',
+  '8': {
+    id: '8',
     title: 'The Legend of Simorgh',
     type: 'story',
     level: 'A2',
     description: 'Learn about the mythical Persian bird through this ancient tale',
+    story: {
+      title: 'افسانه سیمرغ',
+      text: 'سیمرغ پرنده‌ای افسانه‌ای در فرهنگ ایرانی است. سیمرغ بر قله کوه قاف زندگی می‌کند. این پرنده بزرگ و زیبا است و پرهای رنگارنگ دارد. سیمرغ خیلی حکیم و مهربان است. او به مسافران گمشده کمک می‌کند و حیوانات بیمار را شفا می‌دهد. سیمرغ نماد حکمت و خیر است.',
+      translation: 'Simorgh is a mythical bird in Iranian culture. Simorgh lives on the peak of Mount Qaf. This bird is large and beautiful and has colorful feathers. Simorgh is very wise and kind. It helps lost travelers and heals sick animals. Simorgh is a symbol of wisdom and goodness.',
+      audioText: 'سیمرغ پرنده‌ای افسانه‌ای در فرهنگ ایرانی است. سیمرغ بر قله کوه قاف زندگی می‌کند.'
+    },
     questions: [
       {
         id: '1',
@@ -434,8 +457,7 @@ export const lessonData: { [key: string]: Lesson } = {
         question: 'What is Simorgh in Persian mythology?',
         options: ['A magical bird', 'A brave warrior', 'A wise king', 'A beautiful princess'],
         correctAnswer: 'A magical bird',
-        explanation: 'سیمرغ (Simorgh) is a legendary bird in Persian mythology, known for its wisdom and healing powers.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        explanation: 'سیمرغ (Simorgh) is a legendary bird in Persian mythology, known for its wisdom and healing powers.'
       },
       {
         id: '2',
@@ -456,27 +478,78 @@ export const lessonData: { [key: string]: Lesson } = {
       },
       {
         id: '4',
-        type: 'audio-match',
-        question: 'Listen to the word for "mountain":',
-        options: ['کوه', 'دریا', 'جنگل', 'صحرا'],
-        correctAnswer: 'کوه',
-        explanation: 'کوه (kuh) means mountain, where the Simorgh lives.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        type: 'multiple-choice',
+        question: 'Where does Simorgh live according to the story?',
+        options: ['Mount Qaf', 'The sea', 'The forest', 'The desert'],
+        correctAnswer: 'Mount Qaf',
+        explanation: 'The story says Simorgh lives on Mount Qaf (بر قله کوه قاف زندگی می‌کند).'
       },
       {
         id: '5',
         type: 'multiple-choice',
-        question: 'In the story, Simorgh helps...',
-        options: ['Lost travelers', 'Sick animals', 'Both travelers and animals', 'Only kings'],
-        correctAnswer: 'Both travelers and animals',
-        explanation: 'The Simorgh is known for helping all creatures with its healing powers and wisdom.'
+        question: 'According to the story, what does Simorgh symbolize?',
+        options: ['Wisdom and goodness', 'War and conflict', 'Sadness and fear', 'Money and power'],
+        correctAnswer: 'Wisdom and goodness',
+        explanation: 'The story says Simorgh is a symbol of wisdom and goodness (نماد حکمت و خیر است).'
       }
     ],
     culturalNote: 'The Simorgh appears in many Persian stories and represents divine wisdom. It\'s often depicted in Persian art and carpets.'
   },
 
-  '7': {
-    id: '7',
+  '9': {
+    id: '9',
+    title: 'Colors and Descriptions',
+    type: 'regular',
+    level: 'A1',
+    description: 'Learn colors and basic descriptive words in Farsi',
+    questions: [
+      {
+        id: '1',
+        type: 'multiple-choice',
+        question: 'How do you say "red" in Farsi?',
+        options: ['قرمز', 'آبی', 'زرد', 'سبز'],
+        correctAnswer: 'قرمز',
+        explanation: 'قرمز (ghermez) means red in Farsi.'
+      },
+      {
+        id: '2',
+        type: 'sentence-building',
+        question: 'Build: "The sky is blue"',
+        words: ['آسمان', 'آبی', 'است'],
+        correctOrder: [0, 1, 2],
+        correctAnswer: 'آسمان آبی است',
+        explanation: 'This describes the color of the sky.'
+      },
+      {
+        id: '3',
+        type: 'audio-match',
+        question: 'Listen to the word for "green":',
+        options: ['سبز', 'زرد', 'نارنجی', 'بنفش'],
+        correctAnswer: 'سبز',
+        explanation: 'سبز (sabz) means green.'
+      },
+      {
+        id: '4',
+        type: 'translation',
+        question: 'What does "بزرگ" mean?',
+        options: ['Big', 'Small', 'Fast', 'Slow'],
+        correctAnswer: 'Big',
+        explanation: 'بزرگ (bozorg) means big or large.'
+      },
+      {
+        id: '5',
+        type: 'multiple-choice',
+        question: 'How do you say "beautiful"?',
+        options: ['زیبا', 'زشت', 'بزرگ', 'کوچک'],
+        correctAnswer: 'زیبا',
+        explanation: 'زیبا (ziba) means beautiful.'
+      }
+    ],
+    culturalNote: 'Colors have special meanings in Persian culture. Green represents nature and Islam, red symbolizes bravery, and white represents purity.'
+  },
+
+  '10': {
+    id: '10',
     title: 'Persian Tea Culture',
     type: 'culture',
     level: 'A2',
@@ -488,8 +561,7 @@ export const lessonData: { [key: string]: Lesson } = {
         question: 'What is the Persian word for tea?',
         options: ['چای', 'قهوه', 'آب', 'شیر'],
         correctAnswer: 'چای',
-        explanation: 'چای (chai) is the Persian word for tea, borrowed from Chinese.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
+        explanation: 'چای (chai) is the Persian word for tea, borrowed from Chinese.'
       },
       {
         id: '2',
@@ -510,15 +582,6 @@ export const lessonData: { [key: string]: Lesson } = {
       },
       {
         id: '4',
-        type: 'audio-match',
-        question: 'Listen to "sugar cube":',
-        options: ['قند', 'شکر', 'عسل', 'شیرینی'],
-        correctAnswer: 'قند',
-        explanation: 'قند (ghand) refers to sugar cubes traditionally served with tea.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '5',
         type: 'multiple-choice',
         question: 'In Persian culture, tea is often served with...',
         options: ['Dates and sweets', 'Bread only', 'Nothing', 'Coffee'],
@@ -526,255 +589,15 @@ export const lessonData: { [key: string]: Lesson } = {
         explanation: 'Persian tea is traditionally served with dates, sweets, and sometimes nuts.'
       },
       {
-        id: '6',
-        type: 'sentence-building',
-        question: 'Build: "Tea is very hot"',
-        words: ['چای', 'خیلی', 'داغ', 'است'],
-        correctOrder: [0, 1, 2, 3],
-        correctAnswer: 'چای خیلی داغ است',
-        explanation: 'Persian tea is traditionally served very hot.'
-      },
-      {
-        id: '7',
-        type: 'translation',
-        question: 'What is "سماور"?',
-        options: ['Traditional tea maker', 'Tea cup', 'Sugar bowl', 'Tea spoon'],
-        correctAnswer: 'Traditional tea maker',
-        explanation: 'سماور (samovar) is the traditional Russian-style tea maker used in Iran.'
-      },
-      {
-        id: '8',
+        id: '5',
         type: 'multiple-choice',
         question: 'When do Persians typically drink tea?',
         options: ['Only morning', 'Only evening', 'Throughout the day', 'Only with meals'],
         correctAnswer: 'Throughout the day',
         explanation: 'Tea is consumed throughout the day in Persian culture, especially after meals.'
-      },
-      {
-        id: '9',
-        type: 'audio-match',
-        question: 'Listen to "guest":',
-        options: ['مهمان', 'میزبان', 'دوست', 'همسایه'],
-        correctAnswer: 'مهمان',
-        explanation: 'مهمان (mehman) means guest. Offering tea to guests is essential in Persian hospitality.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '10',
-        type: 'sentence-building',
-        question: 'Build: "Welcome, please have tea"',
-        words: ['خوش', 'آمدید', 'چای', 'بفرمایید'],
-        correctOrder: [0, 1, 2, 3],
-        correctAnswer: 'خوش آمدید، چای بفرمایید',
-        explanation: 'This is a traditional Persian welcome with tea offering.'
       }
     ],
     culturalNote: 'Tea culture in Iran is deeply rooted in hospitality. Refusing tea when offered can be considered impolite. The tea ceremony is a social ritual that brings people together.'
-  },
-
-  '8': {
-    id: '8',
-    title: 'The Story of Yalda Night',
-    type: 'story',
-    level: 'A2',
-    description: 'Learn about the longest night of the year celebration in Persian culture',
-    questions: [
-      {
-        id: '1',
-        type: 'multiple-choice',
-        question: 'When is Yalda Night celebrated?',
-        options: ['Winter solstice', 'Summer solstice', 'Spring equinox', 'Fall equinox'],
-        correctAnswer: 'Winter solstice',
-        explanation: 'شب یلدا (Shab-e Yalda) is celebrated on the winter solstice, the longest night of the year.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '2',
-        type: 'sentence-building',
-        question: 'Build: "Tonight is very long"',
-        words: ['امشب', 'خیلی', 'طولانی', 'است'],
-        correctOrder: [0, 1, 2, 3],
-        correctAnswer: 'امشب خیلی طولانی است',
-        explanation: 'This describes the longest night of the year.'
-      },
-      {
-        id: '3',
-        type: 'translation',
-        question: 'What fruit is traditionally eaten on Yalda?',
-        options: ['Watermelon', 'Apple', 'Orange', 'Banana'],
-        correctAnswer: 'Watermelon',
-        explanation: 'هندوانه (hendovaneh) - watermelon is eaten to symbolize summer and warmth.'
-      },
-      {
-        id: '4',
-        type: 'audio-match',
-        question: 'Listen to "pomegranate":',
-        options: ['انار', 'سیب', 'پرتقال', 'موز'],
-        correctAnswer: 'انار',
-        explanation: 'انار (anar) - pomegranate represents the red color of dawn and life.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '5',
-        type: 'multiple-choice',
-        question: 'What do families do on Yalda Night?',
-        options: ['Stay awake together', 'Sleep early', 'Work late', 'Travel'],
-        correctAnswer: 'Stay awake together',
-        explanation: 'Families gather and stay awake to welcome the return of longer days.'
-      }
-    ],
-    culturalNote: 'Yalda Night celebrates the victory of light over darkness. Families read poetry, especially Hafez, and share stories while eating fruits and nuts.'
-  },
-
-  '9': {
-    id: '9',
-    title: 'Colors and Descriptions',
-    type: 'regular',
-    level: 'A1',
-    description: 'Learn colors and basic descriptive words in Farsi',
-    questions: [
-      {
-        id: '1',
-        type: 'multiple-choice',
-        question: 'How do you say "red" in Farsi?',
-        options: ['قرمز', 'آبی', 'زرد', 'سبز'],
-        correctAnswer: 'قرمز',
-        explanation: 'قرمز (ghermez) means red in Farsi.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '2',
-        type: 'sentence-building',
-        question: 'Build: "The sky is blue"',
-        words: ['آسمان', 'آبی', 'است'],
-        correctOrder: [0, 1, 2],
-        correctAnswer: 'آسمان آبی است',
-        explanation: 'This describes the color of the sky.'
-      },
-      {
-        id: '3',
-        type: 'audio-match',
-        question: 'Listen to the word for "green":',
-        options: ['سبز', 'زرد', 'نارنجی', 'بنفش'],
-        correctAnswer: 'سبز',
-        explanation: 'سبز (sabz) means green.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '4',
-        type: 'translation',
-        question: 'What does "بزرگ" mean?',
-        options: ['Big', 'Small', 'Fast', 'Slow'],
-        correctAnswer: 'Big',
-        explanation: 'بزرگ (bozorg) means big or large.'
-      },
-      {
-        id: '5',
-        type: 'multiple-choice',
-        question: 'How do you say "beautiful"?',
-        options: ['زیبا', 'زشت', 'بزرگ', 'کوچک'],
-        correctAnswer: 'زیبا',
-        explanation: 'زیبا (ziba) means beautiful.'
-      },
-      {
-        id: '6',
-        type: 'sentence-building',
-        question: 'Build: "The flower is yellow"',
-        words: ['گل', 'زرد', 'است'],
-        correctOrder: [0, 1, 2],
-        correctAnswer: 'گل زرد است',
-        explanation: 'This describes a yellow flower.'
-      },
-      {
-        id: '7',
-        type: 'translation',
-        question: 'What is the opposite of "بزرگ"?',
-        options: ['کوچک', 'زیبا', 'سریع', 'آهسته'],
-        correctAnswer: 'کوچک',
-        explanation: 'کوچک (kuchak) means small, opposite of big.'
-      },
-      {
-        id: '8',
-        type: 'audio-match',
-        question: 'Listen to "white":',
-        options: ['سفید', 'سیاه', 'خاکستری', 'قهوه‌ای'],
-        correctAnswer: 'سفید',
-        explanation: 'سفید (sefid) means white.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '9',
-        type: 'multiple-choice',
-        question: 'How do you say "old" (for things)?',
-        options: ['کهنه', 'جدید', 'تازه', 'نو'],
-        correctAnswer: 'کهنه',
-        explanation: 'کهنه (kohaneh) means old for objects.'
-      },
-      {
-        id: '10',
-        type: 'sentence-building',
-        question: 'Build: "This car is new"',
-        words: ['این', 'ماشین', 'نو', 'است'],
-        correctOrder: [0, 1, 2, 3],
-        correctAnswer: 'این ماشین نو است',
-        explanation: 'نو (no) means new.'
-      }
-    ],
-    culturalNote: 'Colors have special meanings in Persian culture. Green represents nature and Islam, red symbolizes bravery, and white represents purity.'
-  },
-
-  '10': {
-    id: '10',
-    title: 'The Wise Mulla Nasruddin',
-    type: 'story',
-    level: 'A2',
-    description: 'Learn from the humorous and wise tales of Mulla Nasruddin',
-    questions: [
-      {
-        id: '1',
-        type: 'multiple-choice',
-        question: 'Who is Mulla Nasruddin?',
-        options: ['A wise fool character', 'A real historical king', 'A famous poet', 'A brave warrior'],
-        correctAnswer: 'A wise fool character',
-        explanation: 'ملا نصرالدین (Mulla Nasruddin) is a beloved character in Persian folklore known for his wisdom disguised as foolishness.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '2',
-        type: 'sentence-building',
-        question: 'Build: "The man is very clever"',
-        words: ['مرد', 'خیلی', 'باهوش', 'است'],
-        correctOrder: [0, 1, 2, 3],
-        correctAnswer: 'مرد خیلی باهوش است',
-        explanation: 'باهوش (bahush) means clever or intelligent.'
-      },
-      {
-        id: '3',
-        type: 'translation',
-        question: 'What does "حکایت" mean?',
-        options: ['Story/tale', 'Book', 'Poem', 'Song'],
-        correctAnswer: 'Story/tale',
-        explanation: 'حکایت (hekayat) means story or tale, often with a moral lesson.'
-      },
-      {
-        id: '4',
-        type: 'audio-match',
-        question: 'Listen to "wisdom":',
-        options: ['حکمت', 'احمقی', 'شادی', 'غم'],
-        correctAnswer: 'حکمت',
-        explanation: 'حکمت (hekmat) means wisdom.',
-        audioUrl: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.wav'
-      },
-      {
-        id: '5',
-        type: 'multiple-choice',
-        question: 'Nasruddin stories teach us...',
-        options: ['Life lessons through humor', 'How to be rich', 'How to fight', 'How to cook'],
-        correctAnswer: 'Life lessons through humor',
-        explanation: 'Nasruddin stories use humor to teach profound life lessons and wisdom.'
-      }
-    ],
-    culturalNote: 'Mulla Nasruddin stories are shared across many cultures from Turkey to Central Asia. They teach wisdom through humor and are beloved by children and adults alike.'
   }
 };
 

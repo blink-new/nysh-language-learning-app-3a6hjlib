@@ -10,17 +10,19 @@ import Animated, {
 } from 'react-native-reanimated';
 
 interface AudioPlayerProps {
+  text: string;
   audioUrl?: string;
-  text?: string;
   autoPlay?: boolean;
   size?: 'small' | 'medium' | 'large';
+  showText?: boolean;
 }
 
 export function AudioPlayer({ 
+  text,
   audioUrl, 
-  text, 
   autoPlay = false, 
-  size = 'medium' 
+  size = 'medium',
+  showText = true
 }: AudioPlayerProps) {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -30,7 +32,16 @@ export function AudioPlayer({
   const waveValue = useSharedValue(0);
 
   useEffect(() => {
-    if (autoPlay && audioUrl) {
+    // Configure audio mode for better playback
+    Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      staysActiveInBackground: false,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      playThroughEarpieceAndroid: false,
+    });
+
+    if (autoPlay && text) {
       playAudio();
     }
 
@@ -39,7 +50,7 @@ export function AudioPlayer({
         sound.unloadAsync();
       }
     };
-  }, [audioUrl]);
+  }, [text]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -73,33 +84,21 @@ export function AudioPlayer({
         await sound.unloadAsync();
       }
 
-      // For demo purposes, we'll simulate audio playback
-      // In a real app, you would use the actual audioUrl
-      if (audioUrl) {
-        const { sound: newSound } = await Audio.Sound.createAsync(
-          { uri: audioUrl },
-          { shouldPlay: true }
-        );
-        setSound(newSound);
-        setIsPlaying(true);
-        
-        newSound.setOnPlaybackStatusUpdate((status) => {
-          if (status.isLoaded && status.didJustFinish) {
-            setIsPlaying(false);
-          }
-        });
-      } else {
-        // Simulate audio playback for demo
-        setIsPlaying(true);
-        setTimeout(() => {
-          setIsPlaying(false);
-        }, 2000);
-        return;
-      }
+      // Use text-to-speech for Persian text
+      // For now, we'll simulate audio playback with visual feedback
+      // In production, you would integrate with a TTS service or use pre-recorded audio
+      
+      setIsPlaying(true);
+      
+      // Simulate audio duration based on text length
+      const duration = Math.max(1000, text.length * 100); // Minimum 1 second
+      
+      setTimeout(() => {
+        setIsPlaying(false);
+      }, duration);
 
     } catch (error) {
       console.log('Audio playback error:', error);
-      // Fallback: show text pronunciation guide
       setIsPlaying(false);
     } finally {
       setIsLoading(false);
@@ -109,8 +108,8 @@ export function AudioPlayer({
   const stopAudio = async () => {
     if (sound) {
       await sound.stopAsync();
-      setIsPlaying(false);
     }
+    setIsPlaying(false);
   };
 
   const toggleAudio = () => {
@@ -180,8 +179,13 @@ export function AudioPlayer({
         </Animated.View>
       </TouchableOpacity>
 
-      {text && (
-        <Text style={styles.audioText}>{text}</Text>
+      {showText && text && (
+        <View style={styles.textContainer}>
+          <Text style={styles.audioText}>{text}</Text>
+          <Text style={styles.pronunciationHint}>
+            Tap to hear pronunciation
+          </Text>
+        </View>
       )}
 
       {isPlaying && (
@@ -221,12 +225,22 @@ const styles = StyleSheet.create({
   audioIcon: {
     color: '#FFFFFF',
   },
+  textContainer: {
+    marginTop: 12,
+    alignItems: 'center',
+  },
   audioText: {
-    fontSize: 14,
-    color: '#6B7280',
-    marginTop: 8,
+    fontSize: 18,
+    color: '#1F2937',
+    marginBottom: 4,
     textAlign: 'center',
-    fontWeight: '500',
+    fontWeight: '600',
+  },
+  pronunciationHint: {
+    fontSize: 12,
+    color: '#6B7280',
+    textAlign: 'center',
+    fontStyle: 'italic',
   },
   playingIndicator: {
     marginTop: 8,
